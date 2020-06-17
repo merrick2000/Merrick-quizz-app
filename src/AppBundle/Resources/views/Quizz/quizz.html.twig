@@ -1,0 +1,211 @@
+{% extends('base.html.twig') %}
+
+{% block title %}
+	Funny QuizzApp
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{{ asset('build/app.css') }}">
+{% endblock %}
+
+{% block body %}
+
+	<div id="quiz-container">
+		
+		<div id="timer">
+            <div id="counter"></div>
+            <div id="btimeGauge"></div>
+            <div id="timeGauge"></div>
+         </div>
+		<p id="questionAdd">Loading...</p>
+		<div id="answersAdd">
+			<!--
+			<p class="answer">
+				<input type="checkbox" value="" id="id">
+				<label for="id">
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure 
+				</label>
+				
+			</p>
+			-->
+			
+		</div>
+		<button onclick="saveChoice();" id="btn" class="btn btn-primary">Next</button>
+	</div>
+		
+	
+
+{% endblock %}
+{% block javascripts %}
+	<script type="text/javascript">
+		let data = {
+			"questions" : [],
+			"runningQuestion": 0,
+			"score" : 0,
+			"getScore": function(){
+				return this.score;
+			}
+		};
+		//Player answer on one question
+		let choice = {
+			"questionId": "",
+			"index": []
+		};
+		
+
+		function startQuiz(){
+			//We have to request questions to server
+			let url = "http://localhost/quizzApp/web/app_dev.php/quiz/questions/json";
+			let xhr = new XMLHttpRequest();
+			let result = "";
+			xhr.onreadystatechange = function () {
+			 if(this.readyState == 4 && this.status === 200){
+ 			       
+ 			       questions = JSON.parse(this.response);
+ 			       data.questions = questions.questions;
+					//let runningQuestion = 0;
+					let count = 0;
+					let score = 0;
+ 			       renderQuestion();
+ 			       	
+        			
+    		}
+    		else if(this.readyState == 4){
+    				    alert("an error accurs");
+    			}
+   			};
+			xhr.open("GET", url, true);
+			xhr.setRequestHeader('Content-type','application/json');	
+				xhr.send();
+		}
+
+		// render a question
+function renderQuestion(){
+	questions = data.questions;
+	let index = data.runningQuestion + 1;
+    let question = questions[data.runningQuestion];
+    choice.questionId = question.id;
+    let questionText = document.getElementById('questionAdd');
+    questionText.innerHTML = question.question + "(" +  index + "/" + questions.length + ")";
+ 
+    if(question.answers.length > 1){
+    	let answers = document.getElementById('answersAdd');
+    	
+   
+    	
+    	for (var i = 0; i < question.answers.length; i++) {
+
+    		let label = document.createElement("LABEL");
+    		let answer = document.createElement("P");
+    		let checkbox = document.createElement("INPUT");
+    		checkbox.setAttribute("type","checkbox");
+    		checkbox.setAttribute("class","check");
+    		checkbox.setAttribute("id",i);
+    		checkbox.setAttribute("value",i);
+    		checkbox.setAttribute("onclick","getChoice(this);");
+    		label.setAttribute("for",i);
+    		answer.setAttribute("class","answer");
+    		answer.innerHTML =  question.answers[i];
+    		answer.appendChild(checkbox);
+    		label.appendChild(answer);
+    		answers.appendChild(label);
+    	}
+    }
+}
+
+function getChoice(checkbox){
+	
+	if(checkbox.checked){
+		//Attribute class choice to the answer(the parent tag)
+		checkbox.parentElement.classList.add("choice");
+		if(choice.index.length === 0 || !choice.index.includes(checkbox.value)){
+			choice.index.push(checkbox.value);
+		}
+
+	}
+	else{
+		if(checkbox.parentElement.classList.contains("choice")){
+			checkbox.parentElement.classList.remove("choice");
+			if(choice.index.length > 0){
+				choice.index.splice(choice.index.indexOf(checkbox.value),1);
+			}
+		}
+	}
+}
+
+function saveChoice(){
+	let lastQuestion = data.questions.length - 1;
+	
+	if(data.runningQuestion < lastQuestion){
+		data.runningQuestion++;
+
+		//Remove old answer
+    	let oldAnswers = document.querySelectorAll('.answer');
+    	for(var i = 0; i < oldAnswers.length; i++){
+    		oldAnswers[i].parentElement.remove();
+    		oldAnswers[i].remove();
+    	}
+    	//check answer
+    	checkAnswer();
+		renderQuestion();
+	}
+	else{
+		//show score
+		alert('Votre score est de '+ data.getScore());
+		window.location.href = "http://localhost/quizzApp/web/app_dev.php/participants/add?score="+data.getScore();
+	}
+}
+
+function checkAnswer(action = null){
+
+	let win = 0;
+	let correctAnswers = data.questions[data.runningQuestion-1].correct_answer_id;
+	//If there is only one correct answer
+	if(typeof correctAnswers == "string"){
+		//alert('Choix unique ' + correctAnswers + 'Actuel ' + data.runningQuestion);
+		//User chooses one question
+		if(choice.index.length == 1){
+		//console.log("corect"+correctAnswers);
+		//console.log("choice"+choice.index[0]);
+			if(choice.index[0] == correctAnswers){
+				data.score++;
+					}
+	}
+	//Multiple answers
+	else if(typeof correctAnswers == "object"){
+
+		//User choose more than one question
+		if(choice.index.length > 1){
+		
+			if(choice.index.length == correctAnswers.length){
+				
+				//Check if every answers are corrects
+			for(var i = 0; i < correctAnswers.length; i++){
+				//Loop through user's answer to match data
+				for(var j = 0; j < choice.index.length; j++){
+					if(correctAnswers[i] == choice.index[j]){
+						win = 1;
+					}
+					else{
+						win = 0;
+					}
+					}
+				}
+				if(win == 1){
+					data.score++;
+				}
+			}
+		}
+
+	}
+}
+
+}
+	
+
+		
+	</script>
+{% endblock %}

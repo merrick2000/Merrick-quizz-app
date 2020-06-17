@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Merrick M. QuizzApp | Update
+{% endblock %}
+
+{% block body %}
+	<h1>Edit your question</h1>
+	{% if question != null %}
+		<form method="post">
+		<h3>Question</h3>
+		<input type="text" class="form-control" name="question" value="{{question.text}}" placeholder="Enter the question" required>
+		<br>
+		<h3>Answers</h3>
+		{% for answer in question.answers%}
+			<input type="text" class="form-control" value="{{answer}}" placeholder="Enter a answer" disabled>
+			<input type="checkbox" name="correct[{{ loop.index }}]">
+		{% endfor %}
+
+		<br>
+		<button class="btn btn-primary" name="update">Update</button>
+
+	</form>
+	{% else %}
+		Question does not exists
+	{% endif %}
+
+{% endblock %}

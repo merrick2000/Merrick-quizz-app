@@ -1,0 +1,222 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Merrick M. QuizzApp
+{% endblock %}
+
+{% block body %}
+	
+	<h1> Welcome on quiz's questions page </h1>
+	<button id="add-question" class="btn btn-primary mt-5" onclick="showModal()">Add question</button>
+	<div id="question" style="display: none;">
+		<input type="text" class="form-control" id="value" autofocus>
+		<button onclick="addQuestion()" class="btn btn-primary">Add</button>
+	</div>
+
+	<form id="form">
+		<div id="answers">
+			<p id="error"></p>
+			<p id="hint">Click on number beside the form to set it as an correct answer</p>
+			<div id="content">
+				<input type="text" class="form-control answer-input mt-3" value="" placeholder="Type your answer here" required="">
+				<span onclick="selectedAnswer(this)">1</span>
+			</div>
+			<span class="btn btn-primary" id="add-answer center" onclick="showAnswerForm()">+</span>
+			<button onclick="addAnswers();" class="btn btn-primary save-btn pl-5 pr-5 ml-4">Save</button>
+		</div>
+
+	</form>
+
+<table class="table table-striped mt-5">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">  Questions  </th>
+      <th scope="col">  Action  </th>
+    </tr>
+  </thead>
+  <tbody>
+
+ {% for question in questions %}
+    <tr>
+      <th scope="row"> {{ loop.index }} </th>
+      <td> {{ question.question }} </td>
+      <td> 
+      		<a href="{{ path('updateQuestion', {id:question.id}) }}" class="link-btn bg-primary ml-5">Edit</a>
+
+			<a href="{{ path('deleteQuestion', {question:question.id}) }}" class="link-btn bg-danger">Delete</a>
+      </td>
+    </tr>
+
+    {% endfor %}
+  </tbody>
+</table>
+		
+{% endblock %}
+{% block javascripts %}
+	<script type="text/javascript">
+
+		let data = {
+				'question' : '',
+				'answers' : [],
+				'correctIndex': [],
+				"addAnswer": function(answer){
+					if (!this.answers.includes(answer)) {
+						this.answers.push(answer);
+					}
+				},
+				"addQuestion": function(question){
+					this.question = question;
+				},
+				"addIndex": function(index){
+					if(this.correctIndex.length === 0){
+						this.correctIndex.push(index);
+						
+					}
+					else if(!this.correctIndex.includes(index)){
+						this.correctIndex.push(index);
+					}
+					
+					
+				}
+			};
+
+		function showModal(){
+			let content = document.getElementById('question');
+			content.style.display = "block";
+			document.getElementById('add-question').style.display = "none";
+		}
+
+		function addQuestion(){
+			let question = document.getElementById('value').value;
+			if(question !== ""){
+				data.addQuestion(question);
+				showAnswersForm();
+				//console.log(data);
+			}
+
+		}
+
+		function showAnswersForm(){
+			
+			document.getElementById('question').style.display = 'none';
+			document.getElementById('answers').style.display = 'block';	
+		}
+
+		function addAnswers(){
+			
+			document.getElementById("form").addEventListener("submit", (e)=>{
+				e.preventDefault();
+			});
+			let url = "http://localhost/quizzApp/web/app_dev.php/quiz/add";
+			let answers = document.querySelectorAll(".answer-input");
+			
+			let success = 0;
+			for (var i = 0; i < answers.length; i++) {
+				if(answers[i].value === ""){
+					return;
+				}
+				else if(data.correctIndex.length === 0){
+					document.getElementById('error').innerText = "You must choose at least  one answer for your question";
+					return;
+				}
+				else
+				{
+					data.addAnswer(answers[i].value);
+				}
+				
+			}
+			//Send data to server
+			sendData(url,data);
+			//console.log(data);
+			document.getElementById('answers').style.display = "none";
+			window.location.replace("http://localhost/quizzApp/web/app_dev.php/quiz/questions");
+		}
+
+		function showAnswerForm(){
+
+			let index = 1;
+			let answers = document.querySelectorAll(".form-control");
+			for (var i = 1; i < answers.length; i++) {
+				index = i + 1;
+			}
+			let content = document.getElementById('content');
+			let input = document.createElement("INPUT");
+			let span = document.createElement("SPAN");
+			//let radio = document.createElement("INPUT");
+
+			//radio.setAttribute("type", "radio");
+			//radio.setAttribute("name", "correct");
+			//radio.setAttribute("value", index);
+			span.innerHTML = index;
+			span.setAttribute("onclick","selectedAnswer(this)");
+			input.setAttribute("type","text");
+			input.setAttribute("class","form-control answer-input mt-3");
+			input.setAttribute("placeholder","Type your answer here");
+			input.setAttribute("required","required");
+			content.appendChild(span);
+			content.insertBefore(input, span);
+
+		}
+
+		function selectedAnswer(span){
+			
+			let choice;
+			let selected = [];
+			choice = span.innerText;
+			if(span.classList.toggle("correct-answer"))
+			{
+				data.addIndex(choice-1);
+			}
+			else
+			{
+				data.correctIndex.splice(data.correctIndex[data.correctIndex.indexOf(choice-1)], 1);
+			}
+			/*
+			choice = span.innerText;
+			if (span.classList.contains("correct-answer") && !data.correctIndex.includes(choice)){
+				data.correctIndex.delete(data.correctIndex[data.correctIndex.indexOf(choice-1)]);
+			}
+			data.addIndex(choice-1);
+			
+			console.log(data);
+
+			//alert(correct);*/
+			//console.log(data);
+		}
+
+		function sendData(url, data = {})
+		{
+			let xhr = new XMLHttpRequest();
+			let result = "";
+			xhr.onreadystatechange = function () {
+			    if(this.readyState == 4 && this.status === 200){
+ 			       result = this.response;
+        			console.log(result);
+        //console.log(questions[0]);
+    				}
+    				else if(this.readyState == 4){
+    				    alert("an error accurs");
+    				}
+   				 };
+				xhr.open("POST", url, true);
+//xhr.responseType = "json";
+				xhr.setRequestHeader('Content-type','application/json');
+				xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+				xhr.send(JSON.stringify(data));
+  			/*axios({
+  					method: 'post',
+  					url: url,
+  					data: {
+  					  question: data.question,
+  					  answers: data.answers,
+  					  correctIndex: data.correctIndex
+  					},
+  					headers: {'X-Requested-With': 'XMLHttpRequest'}
+				}).then(function(response){
+					console.log(response);
+				});*/
+		}
+
+	</script>
+{% endblock %}

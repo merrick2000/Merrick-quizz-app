@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Merrick M. QuizzApp
+{% endblock %}
+
+{% block body %}
+	<h1>Welcome to Funny Quiz By Merrick MENONGBE</h1>
+    <div>
+        <a href="{{ path('quizPage') }}" class="bg-primary start-link">Start Quiz Now</a>
+    </div>
+    {# Here we have two links, start quiz now and score#}
+    <a href="{{ path('participantsPage') }}" class="bg-dark start-link">View Scores</a>
+    
+{% endblock %}
