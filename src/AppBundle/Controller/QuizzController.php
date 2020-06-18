@@ -178,7 +178,7 @@ class QuizzController extends Controller
     }
 
     /**
-    * @Route('/checkanswer')
+    * @Route("/checkanswer")
     */
     public function checkAnswerAction(Request $request)
     {
