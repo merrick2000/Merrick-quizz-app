@@ -164,18 +164,15 @@ function checkAnswer(action = null){
 
 	let win = 0;
 	let correctAnswers = data.questions[data.runningQuestion].correct_answer_id;
-	//alert("corect"+correctAnswers);
-	console.log(choice.index);
-		console.log(correctAnswers);
 	//If there is only one correct answer
 	if(typeof correctAnswers == "string"){
-		//alert('Choix unique ' + correctAnswers + 'Actuel ' + data.runningQuestion);
 		//User chooses one question
 		if(choice.index.length == 1){
 		
 			if(choice.index[0] == correctAnswers){
 				data.score++;
-					}
+				console.log(data.score);
+			}
 	}
 	//Multiple answers
 	else if(typeof correctAnswers == "object"){
