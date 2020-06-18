@@ -164,9 +164,9 @@ function checkAnswer(action = null){
 
 	let win = 0;
 	let correctAnswers = data.questions[data.runningQuestion].correct_answer_id;
-	alert("corect"+correctAnswers);
+	//alert("corect"+correctAnswers);
 	console.log(choice.index);
-		console.log(data);
+		console.log(correctAnswers);
 	//If there is only one correct answer
 	if(typeof correctAnswers == "string"){
 		//alert('Choix unique ' + correctAnswers + 'Actuel ' + data.runningQuestion);
@@ -184,25 +184,25 @@ function checkAnswer(action = null){
 		if(choice.index.length > 1){
 		alert('test sup 0');
 			if(choice.index.length == correctAnswers.length){
-				
+				alert('Taille ok');
 				//Check if every answers are corrects
 			for(var i = 0; i < correctAnswers.length; i++){
 				//Loop through user's answer to match data
 				for(var j = 0; j < choice.index.length; j++){
 					if(correctAnswers[i] == choice.index[j]){
 						win = 1;
-						console.log("corect win"+correctAnswers);
-		console.log("choice"+choice.index);
 					}
 					else{
 						win = 0;
 					}
 					}
 				}
-				if(win == 1){
+				if(win){
 					data.score++;
+					console.log("corect win = " +win + "et " +correctAnswers);
 
 				}
+
 			}
 		}
 
