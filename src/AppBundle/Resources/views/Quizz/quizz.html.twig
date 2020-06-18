@@ -153,6 +153,7 @@ function saveChoice(){
 		renderQuestion();
 	}
 	else{
+		checkAnswer();
 		//show score
 		alert('Votre score est de '+ data.getScore());
 		window.location.href = "https://merrick-symfony-quizz-app.herokuapp.com/participants/add?score="+data.getScore();
