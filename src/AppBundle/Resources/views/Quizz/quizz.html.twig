@@ -139,7 +139,7 @@ function getChoice(checkbox){
 function saveChoice(){
 	let lastQuestion = data.questions.length - 1;
 	
-	if(data.runningQuestion < lastQuestion){
+	if(data.runningQuestion <= lastQuestion){
 		
 
 		//Remove old answer
@@ -153,11 +153,11 @@ function saveChoice(){
     	data.runningQuestion++;
 		renderQuestion();
 		alert('Votre score est de '+ data.getScore());
-	}
-	else{
-		//show score
-		
-		/*window.location.href = "https://merrick-symfony-quizz-app.herokuapp.com/participants/add?score="+data.getScore();*/
+		if(data.runningQuestion == lastQuestion){
+			checkAnswer();
+			alert(data.score);return;
+			window.location.href = "https://merrick-symfony-quizz-app.herokuapp.com/participants/add?score="+data.getScore();
+		}
 	}
 }
 
@@ -209,7 +209,7 @@ function checkAnswer(action = null){
 
 }
 	
-
+console.log(data.score);
 		
 	</script>
 {% endblock %}
