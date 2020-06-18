@@ -140,7 +140,7 @@ function saveChoice(){
 	let lastQuestion = data.questions.length - 1;
 	
 	if(data.runningQuestion < lastQuestion){
-		data.runningQuestion++;
+		
 
 		//Remove old answer
     	let oldAnswers = document.querySelectorAll('.answer');
@@ -150,6 +150,7 @@ function saveChoice(){
     	}
     	//check answer
     	checkAnswer();
+    	data.runningQuestion++;
 		renderQuestion();
 	}
 	else{
