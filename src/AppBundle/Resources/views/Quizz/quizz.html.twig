@@ -156,6 +156,7 @@ function saveChoice(){
 		if(data.runningQuestion == lastQuestion){
 			checkAnswer();
 			renderQuestion();
+			checkAnswer();
 			window.location.href = "https://merrick-symfony-quizz-app.herokuapp.com/participants/add?score="+data.getScore();
 		}
 	}
