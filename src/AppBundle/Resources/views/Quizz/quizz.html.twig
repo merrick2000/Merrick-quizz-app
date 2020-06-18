@@ -139,9 +139,9 @@ function getChoice(checkbox){
 function saveChoice(){
 	let lastQuestion = data.questions.length - 1;
 	
-	if(data.runningQuestion <= lastQuestion){
-		
-		console.log(data.runningQuestion);
+	if(data.runningQuestion < lastQuestion){
+		data.runningQuestion++;
+
 		//Remove old answer
     	let oldAnswers = document.querySelectorAll('.answer');
     	for(var i = 0; i < oldAnswers.length; i++){
@@ -150,41 +150,36 @@ function saveChoice(){
     	}
     	//check answer
     	checkAnswer();
-    	data.runningQuestion++;
 		renderQuestion();
+	}
+	else{
+		//show score
 		alert('Votre score est de '+ data.getScore());
-		if(data.runningQuestion == lastQuestion){
-			checkAnswer();
-			renderQuestion();
-			checkAnswer();
-			window.location.href = "https://merrick-symfony-quizz-app.herokuapp.com/participants/add?score="+data.getScore();
-		}
+		window.location.href = "https://merrick-symfony-quizz-app.herokuapp.com/participants/add?score="+data.getScore();
 	}
 }
 
 function checkAnswer(action = null){
 
 	let win = 0;
-	let correctAnswers = data.questions[data.runningQuestion].correct_answer_id;
+	let correctAnswers = data.questions[data.runningQuestion-1].correct_answer_id;
 	//If there is only one correct answer
 	if(typeof correctAnswers == "string"){
+		alert("Choix unik");
 		//User chooses one question
 		if(choice.index.length == 1){
-		
 			if(choice.index[0] == correctAnswers){
 				data.score++;
-				console.log(data.score);
-			}
-	}
+					}
 	}
 	//Multiple answers
-	else{
+	else if(typeof correctAnswers == "object"){
 		alert('Multi');
 		//User choose more than one question
 		if(choice.index.length > 1){
-		alert('test sup 0');
+		
 			if(choice.index.length == correctAnswers.length){
-				alert('Taille ok');
+				
 				//Check if every answers are corrects
 			for(var i = 0; i < correctAnswers.length; i++){
 				//Loop through user's answer to match data
@@ -197,19 +192,18 @@ function checkAnswer(action = null){
 					}
 					}
 				}
-				if(win){
+				if(win == 1){
 					data.score++;
-
 				}
-
 			}
 		}
 
 	}
+}
 
 }
 	
-console.log(data.score);
+
 		
 	</script>
 {% endblock %}
