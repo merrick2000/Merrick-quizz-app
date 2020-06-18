@@ -181,7 +181,8 @@ function checkAnswer(action = null){
    };
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader('Content-type','application/json');
-	xhr.send(choice);
+	xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+	xhr.send(JSON.stringify(choice));
 }
 
 

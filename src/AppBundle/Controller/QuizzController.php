@@ -188,6 +188,7 @@ class QuizzController extends Controller
         
         if($request->getMethod() == Request::METHOD_POST && $request->isXmlHttpRequest())
         {
+            
             $answer = json_decode($request->getContent());
             $question = $repository->find($answer->questionId);
             if($question)
