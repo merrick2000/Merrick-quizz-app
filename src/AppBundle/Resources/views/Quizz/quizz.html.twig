@@ -150,15 +150,15 @@ function saveChoice(){
     	}
     	//check answer
     	checkAnswer();
-    	data.runningQuestion++;
-		renderQuestion();
 		alert('Votre score est de '+ data.getScore());
 		if(data.runningQuestion == lastQuestion){
-			console.log(lastQuestion);
+			console.log("derniere quest " + lastQuestion);
 			checkAnswer();
-			alert(data.score);return;
+			alert(data.score);
 			window.location.href = "https://merrick-symfony-quizz-app.herokuapp.com/participants/add?score="+data.getScore();
 		}
+		data.runningQuestion++;
+		renderquestion();
 	}
 }
 
