@@ -139,7 +139,7 @@ function getChoice(checkbox){
 function saveChoice(){
 	let lastQuestion = data.questions.length - 1;
 	
-	if(data.runningQuestion <= lastQuestion){
+	if(data.runningQuestion < lastQuestion){
 		
 
 		//Remove old answer
@@ -152,11 +152,12 @@ function saveChoice(){
     	checkAnswer();
     	data.runningQuestion++;
 		renderQuestion();
+		alert('Votre score est de '+ data.getScore());
 	}
 	else{
 		//show score
-		alert('Votre score est de '+ data.getScore());
-		window.location.href = "https://merrick-symfony-quizz-app.herokuapp.com/participants/add?score="+data.getScore();
+		
+		/*window.location.href = "https://merrick-symfony-quizz-app.herokuapp.com/participants/add?score="+data.getScore();*/
 	}
 }
 
