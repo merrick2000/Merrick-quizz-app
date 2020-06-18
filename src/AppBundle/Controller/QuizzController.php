@@ -31,7 +31,7 @@ class QuizzController extends Controller
         $doctrine = $this->getDoctrine();
         $repository = $doctrine->getRepository('AppBundle:Questions');
         $query = $repository->createQueryBuilder('q')
-                ->orderBy('q.id','DESC')
+                ->orderBy('q.id','ASC')
                 ->getQuery();
         $questions = $query->getResult();
         $questionsArray = [];

@@ -37,7 +37,7 @@
   </thead>
   <tbody>
 
- {% for question in questions %}
+ {% for question in questions|reverse %}
     <tr>
       <th scope="row"> {{ loop.index }} </th>
       <td> {{ question.question }} </td>
