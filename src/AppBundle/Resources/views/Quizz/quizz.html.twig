@@ -154,7 +154,7 @@ function saveChoice(){
 		renderQuestion();
 		alert('Votre score est de '+ data.getScore());
 		if(data.runningQuestion == lastQuestion){
-			onsole.log(lastQuestion);
+			console.log(lastQuestion);
 			checkAnswer();
 			alert(data.score);return;
 			window.location.href = "https://merrick-symfony-quizz-app.herokuapp.com/participants/add?score="+data.getScore();
