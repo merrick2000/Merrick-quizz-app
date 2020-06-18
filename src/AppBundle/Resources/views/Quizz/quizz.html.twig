@@ -166,7 +166,6 @@ function checkAnswer(action = null){
 	let correctAnswers = data.questions[data.runningQuestion-1].correct_answer_id;
 	//If there is only one correct answer
 	if(typeof correctAnswers == "string"){
-		alert("Choix unik");
 		//User chooses one question
 		if(choice.index.length == 1){
 			if(choice.index[0] == correctAnswers){
@@ -174,7 +173,7 @@ function checkAnswer(action = null){
 					}
 	}
 	//Multiple answers
-	else if(typeof correctAnswers == "object"){
+	if(typeof correctAnswers == "object"){
 		alert('Multi');
 		//User choose more than one question
 		if(choice.index.length > 1){
