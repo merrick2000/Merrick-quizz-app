@@ -139,7 +139,7 @@ function getChoice(checkbox){
 function saveChoice(){
 	let lastQuestion = data.questions.length - 1;
 	
-	if(data.runningQuestion < lastQuestion){
+	if(data.runningQuestion <= lastQuestion){
 		
 
 		//Remove old answer
@@ -165,7 +165,8 @@ function checkAnswer(action = null){
 	let win = 0;
 	let correctAnswers = data.questions[data.runningQuestion].correct_answer_id;
 	alert("corect"+correctAnswers);
-		alert("choice"+choice.index[0]);
+	console.log(choice.index);
+		console.log(data);
 	//If there is only one correct answer
 	if(typeof correctAnswers == "string"){
 		//alert('Choix unique ' + correctAnswers + 'Actuel ' + data.runningQuestion);
@@ -190,7 +191,7 @@ function checkAnswer(action = null){
 				for(var j = 0; j < choice.index.length; j++){
 					if(correctAnswers[i] == choice.index[j]){
 						win = 1;
-						console.log("corect"+correctAnswers);
+						console.log("corect win"+correctAnswers);
 		console.log("choice"+choice.index);
 					}
 					else{
