@@ -37,6 +37,12 @@ class ParticipantsController extends Controller
      */
     public function addAction(Request $request)
     {
+        if($request->getMethod() == Request::METHOD_POST && $request->isXmlHttpRequest())
+        {
+            $score = json_decode($request->getContent());
+            //After we have to save it; just for debbug
+            return $this->json(["score"=>$score ], 200);
+        }
         $participant =  [
             "score" => (!empty($_GET['score']) ?  $_GET['score'] : 0),
             "username" => "" 

@@ -161,7 +161,29 @@ function saveChoice(){
 }
 
 function checkAnswer(action = null){
+	
 
+	let score = 0;
+	let url = "https://merrick-symfony-quizz-app.herokuapp.com/quiz/checkanswer";
+	let xhr = new XMLHttpRequest();
+	let result = "";
+	xhr.onreadystatechange = function () {
+	if(this.readyState == 4 && this.status === 200){
+ 			       
+ 	result = JSON.parse(this.response);
+ 	console.log(result);
+	
+
+   }
+    else if(this.readyState == 4){
+    	alert("an error accurs");
+    }
+   };
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader('Content-type','application/json');
+	xhr.send(choice);
+}
+	/*
 	let win = 0;
 	let correctAnswers = data.questions[data.runningQuestion-1].correct_answer_id;
 	//If there is only one correct answer
@@ -170,7 +192,7 @@ function checkAnswer(action = null){
 		if(choice.index.length == 1){
 			if(choice.index[0] == correctAnswers){
 				data.score++;
-					}
+		}
 	}
 	//Multiple answers
 	if(typeof correctAnswers == "object"){
@@ -198,7 +220,8 @@ function checkAnswer(action = null){
 			}
 		}
 
-	}
+	}*/
+
 }
 
 }

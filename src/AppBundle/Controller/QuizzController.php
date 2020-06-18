@@ -53,7 +53,10 @@ class QuizzController extends Controller
        
         if ($action == "json") 
         {
-            return $this->json(["code"=>200, "questions"=>$questionsArray ], 200);
+            return $this->json([
+                "code"=>200, 
+                "message" => "Success" ,
+                "questions"=>$questionsArray ], 200);
         }
         else if (empty($action) || (is_string($action) && $action !=="json") ) 
         {
@@ -172,6 +175,58 @@ class QuizzController extends Controller
         //Create forms
         //update insruction here
         return $this->render('@App/updateQuestion.html.twig', ["question" => $question]);
+    }
+
+    /**
+    * @Route('/checkanswer')
+    */
+    public function checkAnswerAction(Request $request)
+    {
+        $doctrine = $this->getDoctrine();
+        $repository = $doctrine->getRepository('AppBundle:Questions');
+        
+        
+        if($request->getMethod() == Request::METHOD_POST && $request->isXmlHttpRequest())
+        {
+            $answer = json_decode($request->getContent());
+            $question = $repository->find($answer->questionId);
+            if($question)
+            {
+                $answerMatch = 0;
+                $correctAnswers = explode(',', $question->getCorrectAnswerId());
+                //array of user choice
+                $userCHoice = $answer->index;
+                for ($i=0; $i < count($correctAnswers); $i++) 
+                { 
+                    for ($j=0; $j < count($userCHoice); $j++) 
+                    { 
+                        if($correctAnswers[$i] == $userCHoice[$j])
+                        {
+                            $answerMatch = 1;
+                        }
+                        else
+                        {
+                            $answerMatch = 0;
+                            return $this->json(
+                                [
+                                "code"=>200, 
+                                "message"=>"false"], 
+                                200);
+                        }
+                    }
+                }
+
+                //Return corresponding data
+                if($answerMatch)
+                {
+                    return $this->json(
+                        [
+                        "code"=>200,
+                         "message"=>"true"
+                     ], 200);
+                }
+            }
+        }    
     }
 
 
