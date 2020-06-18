@@ -137,8 +137,6 @@ class QuizzController extends Controller
             $entityManager->remove($question);
 
             $entityManager->flush();
-
-            $this->addFlash('success',"Question deleted successfully.");
         }
         return $this->forward('AppBundle:Quizz:list');
     }
