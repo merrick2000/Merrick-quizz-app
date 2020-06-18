@@ -150,15 +150,14 @@ function saveChoice(){
     	}
     	//check answer
     	checkAnswer();
+    	data.runningQuestion++;
+		renderQuestion();
 		alert('Votre score est de '+ data.getScore());
 		if(data.runningQuestion == lastQuestion){
-			console.log("derniere quest " + lastQuestion);
 			checkAnswer();
 			alert(data.score);
 			window.location.href = "https://merrick-symfony-quizz-app.herokuapp.com/participants/add?score="+data.getScore();
 		}
-		data.runningQuestion++;
-		renderQuestion();
 	}
 }
 
@@ -177,7 +176,7 @@ function checkAnswer(action = null){
 			}
 	}
 	//Multiple answers
-	else if(typeof correctAnswers == "object"){
+	else{
 		alert('Multi');
 		//User choose more than one question
 		if(choice.index.length > 1){
@@ -198,7 +197,6 @@ function checkAnswer(action = null){
 				}
 				if(win){
 					data.score++;
-					console.log("corect win = " +win + "et " +correctAnswers);
 
 				}
 
