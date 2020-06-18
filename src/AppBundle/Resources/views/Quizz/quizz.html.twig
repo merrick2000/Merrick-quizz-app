@@ -183,48 +183,8 @@ function checkAnswer(action = null){
 	xhr.setRequestHeader('Content-type','application/json');
 	xhr.send(choice);
 }
-	/*
-	let win = 0;
-	let correctAnswers = data.questions[data.runningQuestion-1].correct_answer_id;
-	//If there is only one correct answer
-	if(typeof correctAnswers == "string"){
-		//User chooses one question
-		if(choice.index.length == 1){
-			if(choice.index[0] == correctAnswers){
-				data.score++;
-		}
-	}
-	//Multiple answers
-	if(typeof correctAnswers == "object"){
-		alert('Multi');
-		//User choose more than one question
-		if(choice.index.length > 1){
-		
-			if(choice.index.length == correctAnswers.length){
-				
-				//Check if every answers are corrects
-			for(var i = 0; i < correctAnswers.length; i++){
-				//Loop through user's answer to match data
-				for(var j = 0; j < choice.index.length; j++){
-					if(correctAnswers[i] == choice.index[j]){
-						win = 1;
-					}
-					else{
-						win = 0;
-					}
-					}
-				}
-				if(win == 1){
-					data.score++;
-				}
-			}
-		}
 
-	}*/
 
-}
-
-}
 	
 
 		
