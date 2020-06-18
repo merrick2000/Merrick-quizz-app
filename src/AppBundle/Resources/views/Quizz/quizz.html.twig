@@ -160,6 +160,8 @@ function saveChoice(){
 
 function checkAnswer(action = null){
 	
+	console.log(choice);
+	console.log(data.questions[data.runningQestion]);
 	let url = "https://merrick-symfony-quizz-app.herokuapp.com/quiz/checkanswer";
 	let xhr = new XMLHttpRequest();
 	let result = "";
