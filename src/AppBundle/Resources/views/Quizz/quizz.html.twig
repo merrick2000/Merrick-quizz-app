@@ -163,7 +163,7 @@ function saveChoice(){
 function checkAnswer(action = null){
 
 	let win = 0;
-	let correctAnswers = data.questions[data.runningQuestion-1].correct_answer_id;
+	let correctAnswers = data.questions[data.runningQuestion].correct_answer_id;
 	//If there is only one correct answer
 	if(typeof correctAnswers == "string"){
 		//alert('Choix unique ' + correctAnswers + 'Actuel ' + data.runningQuestion);
