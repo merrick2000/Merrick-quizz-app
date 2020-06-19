@@ -139,7 +139,6 @@ function getChoice(checkbox){
 function saveChoice(){
 	let lastQuestion = data.questions.length - 1;
 	
-	if(data.runningQuestion < lastQuestion){
 		//Remove old answer
     	let oldAnswers = document.querySelectorAll('.answer');
     	for(var i = 0; i < oldAnswers.length; i++){
@@ -150,8 +149,8 @@ function saveChoice(){
     	checkAnswer();
     	data.runningQuestion++;
 		renderQuestion();
-	}
-	else{
+	if(data.runningQuestion > lastQuestion)
+	{
 		checkAnswer();
 		//show score
 		alert('Votre score est de '+ data.getScore());
