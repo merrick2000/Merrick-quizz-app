@@ -40,7 +40,7 @@
  {% for question in questions|reverse %}
     <tr>
       <th scope="row"> {{ loop.index }} </th>
-      <td> {{ question.question }} </td>
+      <td class="question-show"> {{ question.question }} </td>
       <td> 
       		<a href="{{ path('updateQuestion', {id:question.id}) }}" class="link-btn bg-primary ml-5">Edit</a>
 

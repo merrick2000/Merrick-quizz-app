@@ -25,6 +25,10 @@ body{
 	color: white;
 	text-decoration: none;
 }
+.question-show{
+	word-wrap: break-word;
+	max-width: 38%;
+}
 #question, #answers{
 			position: relative;
 			top: 0;
