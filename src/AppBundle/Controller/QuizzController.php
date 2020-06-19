@@ -155,14 +155,13 @@ class QuizzController extends Controller
             "correct_answer_id" => "",
             "created_at" => new \DateTime()
         ];
-        $data = new Questions($data);
 
         $doctrine = $this->getDoctrine();
         $repository = $doctrine->getRepository('AppBundle:Questions');
         $question = $repository->find($id);
         if($question)
         {
-            $question = [
+            $oldQuestion = [
                 "text" => $question->getText(),
                 "answers" => explode('|', $question->getAnswers()),
                 "correct_answer_id" => $question->getCorrectAnswerId(),
@@ -171,7 +170,7 @@ class QuizzController extends Controller
             var_dump($_POST);
             if(!empty($_POST["name"]))
             {
-                $data->setText(htmlspecialchars($_POST["name"]));
+                $question->setText(htmlspecialchars($_POST["name"]));
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->flush();
                 return $this->forward('AppBundle:Quizz:list');
@@ -184,7 +183,7 @@ class QuizzController extends Controller
 
         //Create forms
         //update insruction here
-        return $this->render('@App/updateQuestion.html.twig', ["question" => $question]);
+        return $this->render('@App/updateQuestion.html.twig', ["question" => $oldQuestion]);
     }
 
     /**
