@@ -171,8 +171,6 @@ function checkAnswer(action = null){
 	if(this.readyState == 4 && this.status === 200){
  			       
  	result = JSON.parse(this.response);
- 	console.log(result);
- 	console.log(choice);
  	if(result.code == 200){
  		if(result.message == "true"){
  			data.score++;
