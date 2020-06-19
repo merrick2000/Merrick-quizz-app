@@ -20,6 +20,7 @@ body{
 	max-width: 10%;
 	border-radius: 5px;
 	padding: 10px 7px;
+	float: right;
 }
 .link-btn:hover{
 	color: white;
