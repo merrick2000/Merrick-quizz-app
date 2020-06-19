@@ -87,6 +87,9 @@ function renderQuestion(){
 	questions = data.questions;
 	let index = data.runningQuestion + 1;
     let question = questions[data.runningQuestion];
+    if(typeof question == "undefined"){
+    	return;
+    }
     choice.questionId = question.id;
     let questionText = document.getElementById('questionAdd');
     questionText.innerHTML = question.question + "(" +  index + "/" + questions.length + ")";
@@ -151,7 +154,6 @@ function saveChoice(){
 		renderQuestion();
 	if(data.runningQuestion > lastQuestion)
 	{
-		checkAnswer();
 		//show score
 		alert('Votre score est de '+ data.getScore());
 		window.location.href = "https://merrick-symfony-quizz-app.herokuapp.com/participants/add?score="+data.getScore();
