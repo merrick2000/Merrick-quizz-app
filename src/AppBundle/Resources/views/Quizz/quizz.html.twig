@@ -88,7 +88,7 @@ function renderQuestion(){
 	let index = data.runningQuestion + 1;
     let question = questions[data.runningQuestion];
     if(typeof question == "undefined"){
-    	return;
+    	window.location.href = "https://merrick-symfony-quizz-app.herokuapp.com/participants/add?score="+data.getScore();
     }
     choice.questionId = question.id;
     let questionText = document.getElementById('questionAdd');
@@ -170,6 +170,7 @@ function checkAnswer(action = null){
  			       
  	result = JSON.parse(this.response);
  	console.log(result);
+ 	console.log(choice);
  	if(result.code == 200){
  		if(result.message == "true"){
  			data.score++;
