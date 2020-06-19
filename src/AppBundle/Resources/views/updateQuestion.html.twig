@@ -9,7 +9,7 @@
 	{% if question != null %}
 		<form method="post">
 		<h3>Question</h3>
-		<input type="text" class="form-control" name="question" value="{{question.text}}" placeholder="Enter the question" required>
+		<input type="text" class="form-control" name="question" value="{{question.text}}" placeholder="Enter the question" name="text" required>
 		<br>
 		<h3>Answers</h3>
 		{% for answer in question.answers%}

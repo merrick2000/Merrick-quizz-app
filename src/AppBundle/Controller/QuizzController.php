@@ -168,7 +168,16 @@ class QuizzController extends Controller
                 "correct_answer_id" => $question->getCorrectAnswerId(),
                 "created_at" => $question->getCreatedAt()
             ];
+            if(!empty($_POST["name"]))
+            {
+                $data->setText(htmlspecialchars($_POST["name"]));
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->flush();
+                return $this->forward('AppBundle:Quizz:list');
+            }
+            
         }
+
         
         //dump($question);exit();
 
@@ -188,7 +197,7 @@ class QuizzController extends Controller
         
         if($request->getMethod() == Request::METHOD_POST && $request->isXmlHttpRequest())
         {
-            
+
             $answer = json_decode($request->getContent());
             $question = $repository->find($answer->questionId);
             if($question)
