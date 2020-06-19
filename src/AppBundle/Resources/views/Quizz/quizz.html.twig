@@ -87,9 +87,6 @@ function renderQuestion(){
 	questions = data.questions;
 	let index = data.runningQuestion + 1;
     let question = questions[data.runningQuestion];
-    if(typeof question == "undefined"){
-    	window.location.href = "https://merrick-symfony-quizz-app.herokuapp.com/participants/add?score="+data.getScore();
-    }
     choice.questionId = question.id;
     let questionText = document.getElementById('questionAdd');
     questionText.innerHTML = question.question + "(" +  index + "/" + questions.length + ")";
@@ -141,7 +138,13 @@ function getChoice(checkbox){
 
 function saveChoice(){
 	let lastQuestion = data.questions.length - 1;
-	
+		
+		if(data.runningQuestion > lastQuestion)
+		{
+			//show score
+			alert('Votre score est de '+ data.getScore());
+			window.location.href = "https://merrick-symfony-quizz-app.herokuapp.com/participants/add?score="+data.getScore();
+		}
 		//Remove old answer
     	let oldAnswers = document.querySelectorAll('.answer');
     	for(var i = 0; i < oldAnswers.length; i++){
@@ -152,12 +155,6 @@ function saveChoice(){
     	checkAnswer();
     	data.runningQuestion++;
 		renderQuestion();
-	if(data.runningQuestion > lastQuestion)
-	{
-		//show score
-		alert('Votre score est de '+ data.getScore());
-		window.location.href = "https://merrick-symfony-quizz-app.herokuapp.com/participants/add?score="+data.getScore();
-	}
 }
 
 function checkAnswer(action = null){
