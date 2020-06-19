@@ -148,6 +148,7 @@ function saveChoice(){
     	}
     	//check answer
     	checkAnswer();
+    	data.runningQuestion++;
 		renderQuestion();
 	}
 	else{
@@ -173,7 +174,6 @@ function checkAnswer(action = null){
  	if(result.code == 200){
  		if(result.message == "true"){
  			data.score++;
- 			data.runningQuestion++;
  		}
  		else{
  			alert('Mauvais choix');
