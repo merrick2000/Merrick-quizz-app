@@ -139,22 +139,27 @@ function getChoice(checkbox){
 function saveChoice(){
 	let lastQuestion = data.questions.length - 1;
 		
-		if(data.runningQuestion > lastQuestion)
+		if(data.runningQuestion < lastQuestion)
 		{
-			//show score
+			//Remove old answer
+    		let oldAnswers = document.querySelectorAll('.answer');
+    		for(var i = 0; i < oldAnswers.length; i++){
+    			oldAnswers[i].parentElement.remove();
+    			oldAnswers[i].remove();
+    		}
+    		//check answer
+    		checkAnswer();
+    		data.runningQuestion++;
+			renderQuestion();
+			
+		}
+		else
+		{
+		//show score
 			alert('Votre score est de '+ data.getScore());
 			window.location.href = "https://merrick-symfony-quizz-app.herokuapp.com/participants/add?score="+data.getScore();
 		}
-		//Remove old answer
-    	let oldAnswers = document.querySelectorAll('.answer');
-    	for(var i = 0; i < oldAnswers.length; i++){
-    		oldAnswers[i].parentElement.remove();
-    		oldAnswers[i].remove();
-    	}
-    	//check answer
-    	checkAnswer();
-    	data.runningQuestion++;
-		renderQuestion();
+		
 }
 
 function checkAnswer(action = null){
