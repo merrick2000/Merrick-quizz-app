@@ -168,6 +168,7 @@ class QuizzController extends Controller
                 "correct_answer_id" => $question->getCorrectAnswerId(),
                 "created_at" => $question->getCreatedAt()
             ];
+            var_dump($_POST);
             if(!empty($_POST["name"]))
             {
                 $data->setText(htmlspecialchars($_POST["name"]));
