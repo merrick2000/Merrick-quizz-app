@@ -168,12 +168,12 @@ class QuizzController extends Controller
                 "created_at" => $question->getCreatedAt()
             ];
             var_dump($_POST);
-            if(!empty($_POST["name"]))
+            if(!empty($_POST["question"]))
             {
-                $question->setText(htmlspecialchars($_POST["name"]));
+                $question->setText(htmlspecialchars($_POST["question"]));
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->flush();
-                return $this->forward('AppBundle:Quizz:list');
+                return $this->redirectToRoute("questionsList");
             }
             
         }
