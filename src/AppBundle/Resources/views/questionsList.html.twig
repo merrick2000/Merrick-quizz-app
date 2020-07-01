@@ -110,8 +110,8 @@
 			document.getElementById("form").addEventListener("submit", (e)=>{
 				e.preventDefault();
 			});
-			/*let url = "https://merrick-symfony-quizz-app.herokuapp.com/quiz/add";*/
-			let url = "http://127.0.0.1:8000/quiz/add";
+			let url = "https://merrick-symfony-quizz-app.herokuapp.com/quiz/add";
+			/*let url = "http://127.0.0.1:8000/quiz/add";*/
 			let answers = document.querySelectorAll(".answer-input");
 			
 			let success = 0;
@@ -133,8 +133,8 @@
 			sendData(url,data);
 			//console.log(data);
 			document.getElementById('answers').style.display = "none";
-			/*window.location.replace("https://merrick-symfony-quizz-app.herokuapp.com/quiz/questions");*/
-			window.location.replace("http://127.0.0.1:8000/quiz/questions");
+			window.location.replace("https://merrick-symfony-quizz-app.herokuapp.com/quiz/questions");
+			/*window.location.replace("http://127.0.0.1:8000/quiz/questions");*/
 		}
 
 		function showAnswerForm(){

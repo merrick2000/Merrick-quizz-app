@@ -58,8 +58,8 @@
 
 		function startQuiz(){
 			//We have to request questions to server
-			/*let url = "https://merrick-symfony-quizz-app.herokuapp.com/quiz/questions/json";*/
-			let url = "http://127.0.0.1:8000/quiz/questions/json"
+			let url = "https://merrick-symfony-quizz-app.herokuapp.com/quiz/questions/json";
+			/*let url = "http://127.0.0.1:8000/quiz/questions/json"*/
 			let xhr = new XMLHttpRequest();
 			let result = "";
 			xhr.onreadystatechange = function () {
@@ -158,16 +158,16 @@ function saveChoice(){
 		{
 		//show score
 			alert('Votre score est de '+ data.getScore());
-			/*window.location.href = "https://merrick-symfony-quizz-app.herokuapp.com/participants/add?score="+data.getScore();*/ 
-			window.location.href = "http://127.0.0.1:8000/participants/add?score="+data.getScore();
+			window.location.href = "https://merrick-symfony-quizz-app.herokuapp.com/participants/add?score="+data.getScore(); 
+			/*window.location.href = "http://127.0.0.1:8000/participants/add?score="+data.getScore();*/
 		}
 		
 }
 
 function checkAnswer(action = null){
 	
-	/*let url = "https://merrick-symfony-quizz-app.herokuapp.com/quiz/checkanswer";*/
-	let url = "http://127.0.0.1:8000/quiz/checkanswer";
+	let url = "https://merrick-symfony-quizz-app.herokuapp.com/quiz/checkanswer";
+	/*let url = "http://127.0.0.1:8000/quiz/checkanswer";*/
 	let xhr = new XMLHttpRequest();
 	let result = "";
 	xhr.onreadystatechange = function () {
