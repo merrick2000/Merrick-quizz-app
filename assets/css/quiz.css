@@ -61,10 +61,6 @@ body{
 		}
 
 		@media screen and (max-width: 430px){
-			body{
-				background: navy;
-			}
-
 			button[id=btn]{
 				position: relative !important;
 				left: 74% !important;
