@@ -6,11 +6,11 @@
 # database_password: 433c3ae1
 
 parameters:
-    database_host: localhost
+    database_host: us-cdbr-east-05.cleardb.net
     database_port: null
-    database_name: quizapp
-    database_user: root
-    database_password: null
+    database_name: heroku_eabde6a35913c48
+    database_user: bc9d24b25bca7e
+    database_password: 433c3ae1
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null
