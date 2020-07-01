@@ -1,11 +1,16 @@
 # This file is auto-generated during the composer install
 # Heroku Clear Db Databse url "mysql://bc9d24b25bca7e:433c3ae1@us-cdbr-east-05.cleardb.net/heroku_eabde6a35913c48?reconnect=true"
+# database_host: us-cdbr-east-05.cleardb.net
+# database_name: heroku_eabde6a35913c48
+# database_user: bc9d24b25bca7e
+# database_password: 433c3ae1
+
 parameters:
-    database_host: us-cdbr-east-05.cleardb.net
+    database_host: localhost
     database_port: null
-    database_name: heroku_eabde6a35913c48
-    database_user: bc9d24b25bca7e
-    database_password: 433c3ae1
+    database_name: quizapp
+    database_user: root
+    database_password: null
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null

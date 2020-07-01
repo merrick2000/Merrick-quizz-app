@@ -9,7 +9,7 @@
 	<h1> Welcome on quiz's questions page </h1>
 	<button id="add-question" class="btn btn-primary mt-5" onclick="showModal()">Add question</button>
 	<div id="question" style="display: none;">
-		<input type="text" class="form-control" id="value" autofocus>
+		<input type="text" class="form-control" id="value" autofocus><br>
 		<button onclick="addQuestion()" class="btn btn-primary">Add</button>
 	</div>
 
@@ -17,7 +17,7 @@
 		<div id="answers">
 			<p id="error"></p>
 			<p id="hint">Click on number beside the form to set it as an correct answer</p>
-			<div id="content">
+			<div id="content" class="mb-3">
 				<input type="text" class="form-control answer-input mt-3" value="" placeholder="Type your answer here" required="">
 				<span onclick="selectedAnswer(this)">1</span>
 			</div>
@@ -41,10 +41,12 @@
     <tr>
       <th scope="row"> {{ loop.index }} </th>
       <td class="question-show"> {{ question.question }} </td>
-      <td> 
-      		<a href="{{ path('updateQuestion', {id:question.id}) }}" class="link-btn bg-primary ml-5">Edit</a>
+      <td>
+      	  <ul class="action-link"> 
+      		<li><a href="{{ path('updateQuestion', {id:question.id}) }}" class="link-btn bg-primary ml-3">Edit</a></li>
 
-			<a href="{{ path('deleteQuestion', {question:question.id}) }}" class="link-btn bg-danger">Delete</a>
+			<li><a href="{{ path('deleteQuestion', {question:question.id}) }}" class="link-btn bg-danger">Delete</a></li>
+		  </ul>	
       </td>
     </tr>
 
@@ -108,7 +110,8 @@
 			document.getElementById("form").addEventListener("submit", (e)=>{
 				e.preventDefault();
 			});
-			let url = "https://merrick-symfony-quizz-app.herokuapp.com/quiz/add";
+			/*let url = "https://merrick-symfony-quizz-app.herokuapp.com/quiz/add";*/
+			let url = "http://127.0.0.1:8000/quiz/add";
 			let answers = document.querySelectorAll(".answer-input");
 			
 			let success = 0;
@@ -130,7 +133,8 @@
 			sendData(url,data);
 			//console.log(data);
 			document.getElementById('answers').style.display = "none";
-			window.location.replace("https://merrick-symfony-quizz-app.herokuapp.com/quiz/questions");
+			/*window.location.replace("https://merrick-symfony-quizz-app.herokuapp.com/quiz/questions");*/
+			window.location.replace("http://127.0.0.1:8000/quiz/questions");
 		}
 
 		function showAnswerForm(){

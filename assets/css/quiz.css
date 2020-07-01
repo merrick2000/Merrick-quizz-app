@@ -59,3 +59,32 @@ body{
 			cursor: pointer;
 			border-left: 1.6em solid grey;
 		}
+
+		@media screen and (max-width: 430px){
+			body{
+				background: navy;
+			}
+
+			button[id=btn]{
+				position: relative !important;
+				left: 74% !important;
+				bottom: 0em;
+			}
+			#quiz-container{
+    			margin : 3em auto;
+    			min-height: 17em;
+    			width : 100%;
+    			box-shadow: 0px 3px 10px 0px;
+			}
+			#question, #answers{
+				box-shadow: 0px 2px 9px black;
+				margin: 0 auto;
+				width: 70%;
+				margin-left: 15%;
+				display: none;
+			}
+			#answers{
+				height: 20em;
+				overflow: auto;
+			}
+		}

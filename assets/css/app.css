@@ -1,7 +1,15 @@
 body{
 	font-family: "Verdana";
 }
+li{
+	list-style: none;
+}
+.action-link{
+	display: flex;
+	flex-direction: row-reverse;
+	text-align: center;
 
+}
 .start-link{
 	display: inline-block;
 	color: white;
@@ -17,10 +25,8 @@ body{
 .link-btn{
 	text-decoration: none;
 	color: white;
-	max-width: 10%;
 	border-radius: 5px;
-	padding: 10px 7px;
-	float: right;
+	padding: 0.5em 0.4em;
 }
 .link-btn:hover{
 	color: white;
@@ -75,5 +81,6 @@ body{
 			background-color: green;
 		}
 		.save-btn{
-			margin-top: 5em;
+			padding: 5em;
+			
 		}
